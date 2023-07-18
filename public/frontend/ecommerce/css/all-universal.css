@@ -1,0 +1,333 @@
+/* START TOOLTIP STYLES */
+[tooltip] {
+  position: relative;
+  /* opinion 1 */
+}
+
+/* Applies to all tooltips */
+[tooltip]::before,
+[tooltip]::after {
+  text-transform: none;
+  /*opinion2*/
+  font-size: .9em;
+  /*opinion3*/
+  line-height: 1;
+  user-select: none;
+  pointer-events: none;
+  position: absolute;
+  display: none;
+  opacity: 0;
+  transition: 0.5s all ease-in-out;
+  -webkit-transition: 0.5s all ease-in-out;
+  -moz-transition: 0.5s all ease-in-out;
+  -ms-transition: 0.5s all ease-in-out;
+  -o-transition: 0.5s all ease-in-out;
+}
+
+[tooltip]::before {
+  content: '';
+  border: 5px solid transparent;
+  /* opinion 4 */
+  z-index: 1001;
+  /* absurdity 1 */
+}
+
+[tooltip]::after {
+  content: attr(tooltip);
+  text-align: center;
+  min-width: 3em;
+  max-width: 21em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 1ch 1.5ch;
+  border-radius: .3ch;
+  box-shadow: 0 1em 2em -0.5em rgba(0, 0, 0, 0.35);
+  background: #fff;
+  color: black;
+  z-index: 1000;
+  font-size: 14px;
+}
+
+/* Make the tooltips respond to hover */
+[tooltip]:hover::before,
+[tooltip]:hover::after {
+  display: block;
+}
+
+/* don't show empty tooltips */
+[tooltip='']::before,
+[tooltip='']::after {
+  display: none !important;
+}
+
+/* FLOW: UP */
+[tooltip]:not([flow])::before,
+[tooltip][flow^="up"]::before {
+  bottom: 100%;
+  border-bottom-width: 0;
+  border-top-color: #333;
+}
+
+[tooltip]:not([flow])::after,
+[tooltip][flow^="up"]::after {
+  bottom: calc(100% + 5px);
+}
+
+[tooltip]:not([flow])::before,
+[tooltip]:not([flow])::after,
+[tooltip][flow^="up"]::before,
+[tooltip][flow^="up"]::after {
+  left: 50%;
+  transform: translate(-50%, -.5em);
+  -webkit-transform: translate(-50%, -.5em);
+  -moz-transform: translate(-50%, -.5em);
+  -ms-transform: translate(-50%, -.5em);
+  -o-transform: translate(-50%, -.5em);
+}
+
+/* FLOW: DOWN */
+[tooltip][flow^="down"]::before {
+  top: 100%;
+  border-top-width: 0;
+  border-bottom-color: #333;
+}
+
+[tooltip][flow^="down"]::after {
+  top: calc(100% + 5px);
+}
+
+[tooltip][flow^="down"]::before,
+[tooltip][flow^="down"]::after {
+  left: 50%;
+  transform: translate(-50%, .5em);
+  -webkit-transform: translate(-50%, .5em);
+  -moz-transform: translate(-50%, .5em);
+  -ms-transform: translate(-50%, .5em);
+  -o-transform: translate(-50%, .5em);
+  top: 100%;
+}
+
+/* FLOW: LEFT */
+[tooltip][flow^="left"]::before {
+  top: 50%;
+  border-right-width: 0;
+  border-left-color: #fff;
+  left: calc(0em - 16px);
+  transform: translate(-.5em, -50%);
+  -webkit-transform: translate(-.5em, -50%);
+  -moz-transform: translate(-.5em, -50%);
+  -ms-transform: translate(-.5em, -50%);
+  -o-transform: translate(-.5em, -50%);
+}
+
+[tooltip][flow^="left"]::after {
+  top: 50%;
+  right: calc(100% + 16px);
+  transform: translate(-.5em, -50%);
+  -webkit-transform: translate(-.5em, -50%);
+  -moz-transform: translate(-.5em, -50%);
+  -ms-transform: translate(-.5em, -50%);
+  -o-transform: translate(-.5em, -50%);
+}
+
+/* FLOW: RIGHT */
+[tooltip][flow^="right"]::before {
+  top: 50%;
+  border-left-width: 0;
+  border-right-color: #333;
+  right: calc(0em - 5px);
+  transform: translate(.5em, -50%);
+  -webkit-transform: translate(.5em, -50%);
+  -moz-transform: translate(.5em, -50%);
+  -ms-transform: translate(.5em, -50%);
+  -o-transform: translate(.5em, -50%);
+}
+
+[tooltip][flow^="right"]::after {
+  top: 50%;
+  left: calc(100% + 5px);
+  transform: translate(.5em, -50%);
+  -webkit-transform: translate(.5em, -50%);
+  -moz-transform: translate(.5em, -50%);
+  -ms-transform: translate(.5em, -50%);
+  -o-transform: translate(.5em, -50%);
+}
+
+/* KEYFRAMES */
+@keyframes tooltips-vert {
+  to {
+    opacity: .9;
+    transform: translate(-50%, 0);
+    -webkit-transform: translate(-50%, 0);
+    -moz-transform: translate(-50%, 0);
+    -ms-transform: translate(-50%, 0);
+    -o-transform: translate(-50%, 0);
+  }
+}
+
+@keyframes tooltips-horz {
+  to {
+    opacity: .9;
+    transform: translate(0, -50%);
+    -webkit-transform: translate(0, -50%);
+    -moz-transform: translate(0, -50%);
+    -ms-transform: translate(0, -50%);
+    -o-transform: translate(0, -50%);
+  }
+}
+
+/* FX All The Things */
+[tooltip]:not([flow]):hover::before,
+[tooltip]:not([flow]):hover::after,
+[tooltip][flow^="up"]:hover::before,
+[tooltip][flow^="up"]:hover::after,
+[tooltip][flow^="down"]:hover::before,
+[tooltip][flow^="down"]:hover::after {
+  animation: tooltips-vert 0.5s ease-in-out forwards;
+  -webkit-animation: tooltips-vert 0.5s ease-in-out forwards;
+}
+
+[tooltip][flow^="left"]:hover::before,
+[tooltip][flow^="left"]:hover::after,
+[tooltip][flow^="right"]:hover::before,
+[tooltip][flow^="right"]:hover::after {
+  animation: tooltips-horz 0.5s ease-out forwards;
+  -webkit-animation: tooltips-horz 0.5s ease-out forwards;
+}
+
+/* alll-side-bar-close-commom-css  */
+.close-common a {
+  font-size: 23px;
+  display: inline-block;
+  margin: 20px 72px;
+  text-transform: uppercase;
+}
+
+.close-common i {
+  margin: 0 5px;
+}
+
+/* quenty-input-css */
+.btn-minus {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  z-index: 10;
+}
+
+.btn-minus::before {
+  position: absolute;
+  content: "";
+  width: 1px;
+  height: 12px;
+  background: black;
+  z-index: 1100;
+  transform: rotate(90deg);
+  top: 4px;
+}
+
+.btn-plus {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  z-index: 10;
+}
+
+.btn-plus::before {
+  position: absolute;
+  content: "";
+  width: 1px;
+  height: 12px;
+  background: black;
+  z-index: 1100;
+  transform: rotate(90deg);
+  top: 4px;
+  left: 6px;
+}
+
+.btn-plus::after {
+  position: absolute;
+  content: "";
+  width: 1px;
+  height: 12px;
+  background: black;
+  z-index: 1100;
+  top: 4px;
+  left: 6px;
+}
+
+/* quenty-input-css-end */
+/* path css  */
+.page-path {
+  background: #f7f8fa;
+
+}
+
+.page-path ul li a {
+  font-size: 12px;
+  color: #777;
+  display: inline-block;
+
+}
+
+.page-path ul li a:hover {
+  color: #2879fe;
+
+}
+
+.page-path ul li {
+  display: inline-block;
+  font-size: 12px;
+}
+
+/* footer common css here  */
+.footer-contact-with-social h4 {
+  font-size: 18px;
+  line-height: 26px;
+  letter-spacing: .04em;
+  font-weight: 600;
+  color: #fff;
+  margin: 20px 0;
+}
+
+.footer-contact-with-social button {
+  background: #303030;
+  color: #fff;
+}
+
+.social-icon a {
+  display: inline-block;
+  color: #fff;
+  margin: 0 7px;
+  font-size: 17px;
+}
+
+.social-icon a:first-child {
+  margin-left: 0;
+}
+
+.social-icon:last-child {
+  margin-right: 0;
+}
+.footer-social a:hover{
+  color: #000000;
+}
+/* form css-here  */
+.card {
+  border: 2px solid #f8f9fa;
+  top: 10%;
+}
+.form-control {
+  background-color: #f8f9fa;
+  padding: 10px 15px;
+  margin-bottom: 1.3rem;
+  border: 1px solid #fff;
+}
+.form-control:focus {
+  color: #000000;
+  background: #fff;
+  border: 1px solid #2879fe;
+  outline: 0;
+  box-shadow: none;
+}
